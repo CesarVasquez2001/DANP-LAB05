@@ -24,6 +24,7 @@ interface ReporteDao {
     @Delete
     fun deleteReporte(reporte: Reporte)
 
+
     @Query("SELECT * FROM $REPORTE_TABLE WHERE userReporteId = :id")
     fun getUsersWithPosts(id: Int): Flow<Reportes>
 
