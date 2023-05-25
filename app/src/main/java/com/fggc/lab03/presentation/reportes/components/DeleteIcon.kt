@@ -1,18 +1,18 @@
-package com.fggc.lab03.presentation.asistentes.components
+package com.fggc.lab03.presentation.reportes.components
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
-import com.fggc.lab03.core.Constants.Companion.DELETE_ASISTENTE
+ import com.fggc.lab03.core.Constants.Companion.DELETE_REPORTE
 
 @Composable
 fun DeleteIcon(
-    deleteAsistente: () -> Unit
+    deleteReporte: () -> Unit
 ){
-    IconButton(onClick =  deleteAsistente ) {
+    IconButton(onClick =  deleteReporte ) {
         Icon(imageVector = Icons.Default.Delete,
-            contentDescription = DELETE_ASISTENTE)
+            contentDescription = DELETE_REPORTE)
     }
 }

@@ -6,12 +6,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.fggc.lab03.core.Constants.Companion.ASISTENTE_ID
-import com.fggc.lab03.domain.model.Asistente
+import com.fggc.lab03.core.Constants.Companion.REPORTE_ID
 import com.fggc.lab03.navigation.Screen.*
-import com.fggc.lab03.presentation.asistentes.AsistentesScreen
-import com.fggc.lab03.presentation.login.components.LoginScreen
-import com.fggc.lab03.presentation.update_asistentes.UpdateAsistenteScreen
+import com.fggc.lab03.presentation.reportes.ReportesScreen
+import com.fggc.lab03.presentation.login.LoginScreen
+import com.fggc.lab03.presentation.update_reportes.UpdateReporteScreen
 
 @Composable
 fun NavGraph(
@@ -22,16 +21,18 @@ fun NavGraph(
         startDestination = LoginScreen.route
     ) {
 
-        composable(route = Screen.LoginScreen.route) {
+        composable(
+            route = Screen.LoginScreen.route
+        ) {
             LoginScreen(
-                navigateToLoginAsistenteScreen = { loginId ->
+                navigateToLoginReporteScreen = { loginId ->
                     navController.navigate(
-                        "${AsistentesScreen.route}/${loginId}"
+                        "${ReportesScreen.route}/${loginId}"
                     )
                 })
         }
         composable(
-            route = "${AsistentesScreen.route}/{loginId}",
+            route = "${ReportesScreen.route}/{loginId}",
             arguments = listOf(
                 navArgument("loginId") {
                     type = NavType.IntType
@@ -40,26 +41,26 @@ fun NavGraph(
         ) { backStackEntry ->
             val loginId = backStackEntry.arguments?.getInt("loginId") ?: 0
 
-            AsistentesScreen(
+            ReportesScreen(
                 loginId = loginId,
-                navigateToUpdateAsistenteScreen = { asistenteId ->
+                navigateToUpdateReporteScreen = { reporteId ->
                     navController.navigate(
-                        "${UpdateAsistenteScreen.route}/${asistenteId}"
+                        "${UpdateReporteScreen.route}/${reporteId}"
                     )
                 }
             )
         }
         composable(
-            route = "${UpdateAsistenteScreen.route}/{$ASISTENTE_ID}",
+            route = "${UpdateReporteScreen.route}/{$REPORTE_ID}",
             arguments = listOf(
-                navArgument(ASISTENTE_ID) {
+                navArgument(REPORTE_ID) {
                     type = NavType.IntType
                 }
             )
         ) { backStackEntry ->
-            val asistenteId = backStackEntry.arguments?.getInt(ASISTENTE_ID) ?: 0
-            UpdateAsistenteScreen(
-                asistenteId = asistenteId,
+            val reporteId = backStackEntry.arguments?.getInt(REPORTE_ID) ?: 0
+            UpdateReporteScreen(
+                reporteId = reporteId,
                 navigateBack = {
                     navController.popBackStack()
                 }

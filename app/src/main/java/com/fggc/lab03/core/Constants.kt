@@ -3,22 +3,22 @@ package com.fggc.lab03.core
 class Constants {
     companion object{
         // Room
-        const val ASISTENTE_TABLE = "asistente_table"
+        const val REPORTE_TABLE = "reporte_table"
         const val USER_TABLE = "user_table"
 
         // Screens
-        const val ASISTENTES_SCREEN = "Asistentes"
-        const val UPDATE_ASISTENTES_SCREEN = "Actualizar asistentes"
+        const val REPORTES_SCREEN = "Reportes"
+        const val UPDATE_REPORTES_SCREEN = "Actualizar reportes"
         const val LOGIN_SCREEN = "Login"
 
         // const val LOGIN_SCREEN = "Login"
 
         // Arguments
-        const val  ASISTENTE_ID = "asistenteId"
+        const val  REPORTE_ID = "reporteId"
 
         // Actions
-        const val ADD_ASISTENTE = "Agregar asistente"
-        const val DELETE_ASISTENTE = "Borrar un asistente"
+        const val ADD_REPORTE = "Agregar reporte"
+        const val DELETE_REPORTE = "Borrar un reporte"
 
         // Buttons
         const val ADD = "Agregar"

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.fggc.lab03.domain.model.Reporte
 import com.fggc.lab03.domain.model.User
 
-@Database(entities = [User::class, Reporte::class], version = 1, exportSchema = false)
-abstract  class UserDB: RoomDatabase() {
-    abstract fun userDao(): UserDao
+@Database(entities = [Reporte::class, User::class], version = 1, exportSchema = false)
+abstract  class ReporteDB: RoomDatabase() {
+    abstract fun reporteDao(): ReporteDao
 }

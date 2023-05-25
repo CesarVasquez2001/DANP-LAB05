@@ -1,4 +1,4 @@
-package com.fggc.lab03.presentation.asistentes.components
+package com.fggc.lab03.presentation.reportes.components
 
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -6,10 +6,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import com.fggc.lab03.core.Constants.Companion.ADD_ASISTENTE
+import com.fggc.lab03.core.Constants.Companion.ADD_REPORTE
 
 @Composable
-fun AddAsistenteFloatingActionButton(
+fun AddReporteFloatingActionButton(
     openDialog: () -> Unit
 ){
     FloatingActionButton(
@@ -18,7 +18,7 @@ fun AddAsistenteFloatingActionButton(
         ) {
         Icon(
             imageVector = Icons.Default.Add,
-            contentDescription = ADD_ASISTENTE
+            contentDescription = ADD_REPORTE
         )
     }
 }

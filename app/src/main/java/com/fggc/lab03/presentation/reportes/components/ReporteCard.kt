@@ -1,4 +1,4 @@
-package com.fggc.lab03.presentation.asistentes.components
+package com.fggc.lab03.presentation.reportes.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -9,14 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fggc.lab03.domain.model.Asistente
+import com.fggc.lab03.domain.model.Reporte
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AsistenteCard(
-    asistente: Asistente,
-    deleteAsistente: () -> Unit,
-    navigateToUpdateAsistenteScreen: (asistenteId: Int) -> Unit
+fun ReporteCard(
+    reporte: Reporte,
+    deleteReporte: () -> Unit,
+    navigateToUpdateReporteScreen: (reporteId: Int) -> Unit
 ){
     Card(
         shape = MaterialTheme.shapes.medium,
@@ -30,7 +30,7 @@ fun AsistenteCard(
             .fillMaxWidth(),
         elevation = 3.dp,
         onClick = {
-            navigateToUpdateAsistenteScreen(asistente.id)
+            navigateToUpdateReporteScreen(reporte.reporteId)
         }
     ){
         Row(
@@ -40,14 +40,14 @@ fun AsistenteCard(
             verticalAlignment = Alignment.CenterVertically
         ){
             Column() {
-                Text(asistente.nombre)
-                Text(asistente.apellido)
+                Text(reporte.titulo)
+                Text(reporte.description)
             }
             Spacer(
                 modifier = Modifier.weight(1f)
             )
             DeleteIcon(
-                deleteAsistente = deleteAsistente
+                deleteReporte = deleteReporte
             )
         }
     }

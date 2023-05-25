@@ -1,4 +1,4 @@
-package com.fggc.lab03.presentation.asistentes.components
+package com.fggc.lab03.presentation.reportes.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +13,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.fggc.lab03.core.Constants.Companion.ADD
-import com.fggc.lab03.core.Constants.Companion.ADD_ASISTENTE
+import com.fggc.lab03.core.Constants.Companion.ADD_REPORTE
 import com.fggc.lab03.core.Constants.Companion.NOMBRE
 import com.fggc.lab03.core.Constants.Companion.DISMISS
 import com.fggc.lab03.core.Constants.Companion.NO_VALUE
@@ -23,41 +23,44 @@ import com.fggc.lab03.core.Constants.Companion.FECHA_INSCRIPCION
 import com.fggc.lab03.core.Constants.Companion.MONTO_PAGADO
 import com.fggc.lab03.core.Constants.Companion.TELEFONO
 import com.fggc.lab03.core.Constants.Companion.TIPO_SANGRE
-import com.fggc.lab03.domain.model.Asistente
+import com.fggc.lab03.domain.model.Reporte
 import kotlinx.coroutines.job
 
 @Composable
-fun AddAsistenteAlertDialog(
+fun AddReporteAlertDialog(
     openDialog: Boolean,
     closeDialog: () -> Unit,
-    addAsistente: (asistente: Asistente) -> Unit
-){
-    if (openDialog){
-        var nombre by remember { mutableStateOf(NO_VALUE)}
-        var apellido by remember { mutableStateOf(NO_VALUE)}
-        var fecha_inscripcion by remember { mutableStateOf(NO_VALUE)}
-        var tipo_sangre by remember { mutableStateOf(NO_VALUE)}
-        var telefono by remember { mutableStateOf(NO_VALUE)}
-        var correo by remember { mutableStateOf(NO_VALUE)}
-        var monto_pagado by remember { mutableStateOf(NO_VALUE)}
+    addReporte: (reporte: Reporte) -> Unit,
+    loginId: Int
+) {
+    if (openDialog) {
+        var titulo by remember { mutableStateOf(NO_VALUE) }
+        var description by remember { mutableStateOf(NO_VALUE) }
+        var latitud by remember { mutableStateOf(NO_VALUE) }
+        var longitud by remember { mutableStateOf(NO_VALUE) }
+        var estado by remember { mutableStateOf(NO_VALUE) }
+        var comentarios by remember { mutableStateOf(NO_VALUE) }
+        var user_registro_id by remember {
+            mutableStateOf(loginId)
+        }
         val focusRequester = FocusRequester()
 
         AlertDialog(
             onDismissRequest = { closeDialog },
             title = {
-                Text(ADD_ASISTENTE)
+                Text(ADD_REPORTE)
             },
             text = {
                 Column() {
                     TextField(
-                        value = nombre,
-                        onValueChange = {nombre = it},
+                        value = titulo,
+                        onValueChange = { titulo = it },
                         placeholder = {
                             Text(NOMBRE)
                         },
                         modifier = Modifier.focusRequester(focusRequester)
                     )
-                    LaunchedEffect(Unit){
+                    LaunchedEffect(Unit) {
                         coroutineContext.job.invokeOnCompletion {
                             focusRequester.requestFocus()
                         }
@@ -66,8 +69,8 @@ fun AddAsistenteAlertDialog(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = apellido,
-                        onValueChange = {apellido = it},
+                        value = description,
+                        onValueChange = { description = it },
                         placeholder = {
                             Text(APELLIDO)
                         }
@@ -76,8 +79,8 @@ fun AddAsistenteAlertDialog(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = fecha_inscripcion,
-                        onValueChange = {fecha_inscripcion = it},
+                        value = latitud,
+                        onValueChange = { latitud = it },
                         placeholder = {
                             Text(FECHA_INSCRIPCION)
                         }
@@ -86,8 +89,8 @@ fun AddAsistenteAlertDialog(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = tipo_sangre,
-                        onValueChange = {tipo_sangre = it},
+                        value = longitud,
+                        onValueChange = { longitud = it },
                         placeholder = {
                             Text(TIPO_SANGRE)
                         }
@@ -96,8 +99,8 @@ fun AddAsistenteAlertDialog(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = telefono,
-                        onValueChange = {telefono = it},
+                        value = estado,
+                        onValueChange = { estado = it },
                         placeholder = {
                             Text(TELEFONO)
                         }
@@ -106,37 +109,39 @@ fun AddAsistenteAlertDialog(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = correo,
-                        onValueChange = {correo = it},
+                        value = comentarios,
+                        onValueChange = { comentarios = it },
                         placeholder = {
                             Text(CORREO)
                         }
                     )
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-                    TextField(
-                        value = monto_pagado,
-                        onValueChange = {monto_pagado = it},
-                        placeholder = {
-                            Text(MONTO_PAGADO)
-                        }
-                    )
+
+
                 }
             },
             confirmButton = {
                 TextButton(
                     onClick = {
                         closeDialog()
-                        val asistente = Asistente(0,nombre,apellido, fecha_inscripcion, tipo_sangre, telefono, correo, monto_pagado)
-                        addAsistente(asistente)
+                        val reporte = Reporte(
+                            0,
+                            titulo,
+                            description,
+                            latitud,
+                            longitud,
+                            estado,
+                            comentarios,
+                            user_registro_id
+                        )
+                        addReporte(reporte)
                     }) {
                     Text(ADD)
                 }
             },
             dismissButton = {
                 TextButton(
-                    onClick = closeDialog) {
+                    onClick = closeDialog
+                ) {
                     Text(DISMISS)
                 }
             }

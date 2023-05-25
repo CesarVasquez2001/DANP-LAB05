@@ -1,4 +1,4 @@
-package com.fggc.lab03.presentation.login.components
+package com.fggc.lab03.presentation.login
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -9,10 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -22,19 +19,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.fggc.lab03.domain.model.User
 
 @Composable
 fun LoginScreen(
 
-    navigateToLoginAsistenteScreen: (loginId: Int) -> Unit
+    navigateToLoginReporteScreen: (loginId: Int) -> Unit,
+    viewModel: LoginViewModel = hiltViewModel(),
 
-) {
+
+    ) {
 
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
 
+    val users by viewModel.users.collectAsState(
+        initial = emptyList()
+    )
+
+    Log.d("USUARIOS", users.toString())
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -49,21 +54,41 @@ fun LoginScreen(
                 Text(text = "Inicia Sesion")
                 UserForm(
                     isCreateAccount = false,
-                    navigateToLoginAsistenteScreen = navigateToLoginAsistenteScreen
+                    navigateToLoginReporteScreen = navigateToLoginReporteScreen,
 
-                )
+                    )
                 { email, password ->
                     Log.d("Bien", "Logueando con $email y $password")
+                    val userFound = users.find { it.email == email && it.password == password }
+                    if (userFound != null) {
+                        Log.d("SI", "EXISTE")
+                        Log.d("ID", userFound.userId.toString())
+                        Log.d("EMAIL", userFound.email)
+                        Log.d("PASSWORD", userFound.password)
+                        navigateToLoginReporteScreen(userFound.userId)
+                    } else {
+                        Log.d("NO", "NO EXISTE")
+                    }
                 }
 
             } else {
                 Text(text = "Crea una cuenta")
                 UserForm(
                     isCreateAccount = true,
-                    navigateToLoginAsistenteScreen = navigateToLoginAsistenteScreen
+                    navigateToLoginReporteScreen = navigateToLoginReporteScreen,
                 )
                 { email, password ->
                     Log.d("Bien", "Creando cuenta con $email y $password")
+                    Log.d("REGISTRA SESION", "TEST")
+                    val userFound = users.find { it.email == email && it.password == password }
+                    if (userFound != null) {
+                        Log.d("SI", "EXISTE")
+                    } else {
+                        Log.d("NO", "NO EXISTE")
+                        val user = User(0, email, password)
+                        viewModel.addUser(user)
+                        showLoginForm.value = !showLoginForm.value
+                    }
                 }
             }
 
@@ -94,8 +119,7 @@ fun LoginScreen(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun UserForm(
-
-    navigateToLoginAsistenteScreen: (loginId: Int) -> Unit,
+    navigateToLoginReporteScreen: (loginId: Int) -> Unit,
     isCreateAccount: Boolean = false,
     onDone: (String, String) -> Unit = { email, pwd -> }
 ) {
@@ -116,17 +140,18 @@ fun UserForm(
             passwordState = password, labelId = "Password", passwordVisible = passwordVisible
         )
         SubmitButton(
-            navigateToLoginAsistenteScreen = navigateToLoginAsistenteScreen,
+            navigateToLoginReporteScreen = navigateToLoginReporteScreen,
             textId = if (isCreateAccount) "Crear cuenta" else "Login", inputValido = valido,
-        ) {
+
+            ) {
             onDone(
                 email.value.trim(),
                 password.value.trim(),
-
             )
             if (keyboardController != null) {
                 keyboardController.hide()
             }
+
 
         }
 
@@ -136,16 +161,15 @@ fun UserForm(
 
 @Composable
 fun SubmitButton(
-    navigateToLoginAsistenteScreen: (loginId: Int) -> Unit,
+
+    navigateToLoginReporteScreen: (loginId: Int) -> Unit,
     textId: String,
     inputValido: Boolean,
     onClic: () -> Unit
 ) {
+
     Button(
-        onClick = {
-            onClic
-            navigateToLoginAsistenteScreen(10)
-        },
+        onClick = onClic,
         modifier = Modifier
             .padding(3.dp)
             .fillMaxWidth(),
