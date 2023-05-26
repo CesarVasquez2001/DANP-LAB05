@@ -8,12 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fggc.lab03.core.Constants.Companion.NOMBRE
-import com.fggc.lab03.core.Constants.Companion.APELLIDO
-import com.fggc.lab03.core.Constants.Companion.CORREO
-import com.fggc.lab03.core.Constants.Companion.FECHA_INSCRIPCION
-import com.fggc.lab03.core.Constants.Companion.TELEFONO
-import com.fggc.lab03.core.Constants.Companion.TIPO_SANGRE
+import com.fggc.lab03.core.Constants.Companion.COMENTARIOS
+import com.fggc.lab03.core.Constants.Companion.DESCRIPCION
+import com.fggc.lab03.core.Constants.Companion.ESTADO
+import com.fggc.lab03.core.Constants.Companion.LATITUD
+import com.fggc.lab03.core.Constants.Companion.LONGITUD
+import com.fggc.lab03.core.Constants.Companion.TITULO
 import com.fggc.lab03.core.Constants.Companion.UPDATE
 import com.fggc.lab03.domain.model.Reporte
 
@@ -45,7 +45,7 @@ fun UpdateReporteContext(
                 updateTitulo(titulo)
             },
             placeholder = {
-                Text(NOMBRE)
+                Text(TITULO)
             }
         )
         Spacer(
@@ -58,7 +58,7 @@ fun UpdateReporteContext(
                 updateDescription(description)
             },
             placeholder = {
-                Text(APELLIDO)
+                Text(DESCRIPCION)
             }
         )
         Spacer(
@@ -71,7 +71,7 @@ fun UpdateReporteContext(
                 updateLatitud(latitud)
             },
             placeholder = {
-                Text(FECHA_INSCRIPCION)
+                Text(LATITUD)
             }
         )
         Spacer(
@@ -84,7 +84,7 @@ fun UpdateReporteContext(
                 updateLongitud(longitud)
             },
             placeholder = {
-                Text(TIPO_SANGRE)
+                Text(LONGITUD)
             }
         )
         Spacer(
@@ -97,7 +97,7 @@ fun UpdateReporteContext(
                 updateEstado(estado)
             },
             placeholder = {
-                Text(TELEFONO)
+                Text(ESTADO)
             }
         )
         Spacer(
@@ -110,7 +110,7 @@ fun UpdateReporteContext(
                 updateComentarios(comentarios)
             },
             placeholder = {
-                Text(CORREO)
+                Text(COMENTARIOS)
             }
         )
 

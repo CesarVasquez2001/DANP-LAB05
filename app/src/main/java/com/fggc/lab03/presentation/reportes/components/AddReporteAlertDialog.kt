@@ -14,15 +14,14 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.fggc.lab03.core.Constants.Companion.ADD
 import com.fggc.lab03.core.Constants.Companion.ADD_REPORTE
-import com.fggc.lab03.core.Constants.Companion.NOMBRE
 import com.fggc.lab03.core.Constants.Companion.DISMISS
 import com.fggc.lab03.core.Constants.Companion.NO_VALUE
-import com.fggc.lab03.core.Constants.Companion.APELLIDO
-import com.fggc.lab03.core.Constants.Companion.CORREO
-import com.fggc.lab03.core.Constants.Companion.FECHA_INSCRIPCION
-import com.fggc.lab03.core.Constants.Companion.MONTO_PAGADO
-import com.fggc.lab03.core.Constants.Companion.TELEFONO
-import com.fggc.lab03.core.Constants.Companion.TIPO_SANGRE
+import com.fggc.lab03.core.Constants.Companion.COMENTARIOS
+import com.fggc.lab03.core.Constants.Companion.DESCRIPCION
+import com.fggc.lab03.core.Constants.Companion.ESTADO
+import com.fggc.lab03.core.Constants.Companion.LATITUD
+import com.fggc.lab03.core.Constants.Companion.LONGITUD
+import com.fggc.lab03.core.Constants.Companion.TITULO
 import com.fggc.lab03.domain.model.Reporte
 import kotlinx.coroutines.job
 
@@ -56,7 +55,7 @@ fun AddReporteAlertDialog(
                         value = titulo,
                         onValueChange = { titulo = it },
                         placeholder = {
-                            Text(NOMBRE)
+                            Text(TITULO)
                         },
                         modifier = Modifier.focusRequester(focusRequester)
                     )
@@ -72,7 +71,7 @@ fun AddReporteAlertDialog(
                         value = description,
                         onValueChange = { description = it },
                         placeholder = {
-                            Text(APELLIDO)
+                            Text(DESCRIPCION)
                         }
                     )
                     Spacer(
@@ -82,7 +81,7 @@ fun AddReporteAlertDialog(
                         value = latitud,
                         onValueChange = { latitud = it },
                         placeholder = {
-                            Text(FECHA_INSCRIPCION)
+                            Text(LATITUD)
                         }
                     )
                     Spacer(
@@ -92,7 +91,7 @@ fun AddReporteAlertDialog(
                         value = longitud,
                         onValueChange = { longitud = it },
                         placeholder = {
-                            Text(TIPO_SANGRE)
+                            Text(LONGITUD)
                         }
                     )
                     Spacer(
@@ -102,7 +101,7 @@ fun AddReporteAlertDialog(
                         value = estado,
                         onValueChange = { estado = it },
                         placeholder = {
-                            Text(TELEFONO)
+                            Text(ESTADO)
                         }
                     )
                     Spacer(
@@ -112,7 +111,7 @@ fun AddReporteAlertDialog(
                         value = comentarios,
                         onValueChange = { comentarios = it },
                         placeholder = {
-                            Text(CORREO)
+                            Text(COMENTARIOS)
                         }
                     )
 
