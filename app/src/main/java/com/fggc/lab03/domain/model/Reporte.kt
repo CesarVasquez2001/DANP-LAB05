@@ -8,7 +8,6 @@ import com.fggc.lab03.core.Constants.Companion.REPORTE_TABLE
 data class Reporte(
     @PrimaryKey(autoGenerate = true)
     val reporteId: Int,
-
     val titulo: String,
     // val date: Date,
     val description: String,
@@ -17,13 +16,6 @@ data class Reporte(
     val longitud: String,
     val estado: String,
     val comentarios: String,
-    // val nombre: String,
-    // val apellido: String,
-    // val fechaInscripcion: String,
-    // val tipoSangre: String,
-    //    val telefono: String,
-    //    val correo: String,
-    //    val montoPagado: String,
+
     val userReporteId: Int,
 )
-// MVVM

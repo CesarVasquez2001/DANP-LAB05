@@ -20,7 +20,6 @@ fun NavGraph(
         navController = navController,
         startDestination = LoginScreen.route
     ) {
-
         composable(
             route = Screen.LoginScreen.route
         ) {

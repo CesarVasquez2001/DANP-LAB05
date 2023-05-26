@@ -1,5 +1,4 @@
 package com.fggc.lab03.presentation.login
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,7 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 @HiltViewModel
 class
 LoginViewModel @Inject constructor(
@@ -21,7 +19,6 @@ LoginViewModel @Inject constructor(
     var user by mutableStateOf(User(0, NO_VALUE, NO_VALUE))
     val users = repo.getUsersFromRoom()
     var userFind by mutableStateOf(User(0, NO_VALUE, NO_VALUE))
-
 
     fun addUser(user: User) = viewModelScope.launch(Dispatchers.IO)
     {
