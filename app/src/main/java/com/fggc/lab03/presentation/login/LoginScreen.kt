@@ -1,5 +1,6 @@
 package com.fggc.lab03.presentation.login
 
+
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,7 +21,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.amazonaws.auth.CognitoCachingCredentialsProvider
+import com.amazonaws.mobile.client.AWSMobileClient
+import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager
+import com.amazonaws.regions.Regions
 import com.fggc.lab03.domain.model.User
+
 
 @Composable
 fun LoginScreen(
@@ -41,7 +47,9 @@ fun LoginScreen(
 
     Log.d("USUARIOS", users.toString())
 
+
     Surface(
+
         modifier = Modifier.fillMaxSize()
     ) {
 
