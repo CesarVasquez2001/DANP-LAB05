@@ -16,6 +16,5 @@ data class Reporte(
     val longitud: String,
     val estado: String,
     val comentarios: String,
-
     val userReporteId: Int,
 )
