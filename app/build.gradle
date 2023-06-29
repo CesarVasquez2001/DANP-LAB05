@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.fggc.lab03"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -102,6 +103,13 @@ dependencies {
 
     // Amplify core dependency
     implementation 'com.amplifyframework:core:1.32.0'
+
+    // Amplify API and Datastore dependencies
+    implementation 'com.amplifyframework:aws-api:2.8.4'
+    implementation 'com.amplifyframework:aws-datastore:2.8.4'
+
+    // Support for Java 8 features
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
 
 

@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name="com.fggc.lab03.MyAppCrud"
+        android:name=".MyAppCrud"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,7 +19,6 @@
         <activity
             android:name="com.fggc.lab03.presentation.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.MascotaCrud">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

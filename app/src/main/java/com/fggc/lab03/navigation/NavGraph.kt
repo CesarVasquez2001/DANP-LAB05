@@ -10,6 +10,7 @@ import com.fggc.lab03.core.Constants.Companion.REPORTE_ID
 import com.fggc.lab03.navigation.Screen.*
 import com.fggc.lab03.presentation.reportes.ReportesScreen
 import com.fggc.lab03.presentation.login.LoginScreen
+import com.fggc.lab03.presentation.reportes.SensorScreen
 import com.fggc.lab03.presentation.update_reportes.UpdateReporteScreen
 
 @Composable
@@ -26,9 +27,28 @@ fun NavGraph(
             LoginScreen(
                 navigateToLoginReporteScreen = { loginId ->
                     navController.navigate(
-                        "${ReportesScreen.route}/${loginId}"
+                        "${SensorScreen.route}/${loginId}"
                     )
                 })
+        }
+        composable(
+            route = "${SensorScreen.route}/{loginId}",
+            arguments = listOf(
+                navArgument("loginId") {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val loginId = backStackEntry.arguments?.getInt("loginId") ?: 0
+
+            SensorScreen(
+                loginId = loginId,
+                navigateToUpdateReporteScreen = { reporteId ->
+                    navController.navigate(
+                        "${LoginScreen.route}/${reporteId}"
+                    )
+                }
+            )
         }
         composable(
             route = "${ReportesScreen.route}/{loginId}",

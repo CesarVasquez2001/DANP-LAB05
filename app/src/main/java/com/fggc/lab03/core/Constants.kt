@@ -10,8 +10,7 @@ class Constants {
         const val REPORTES_SCREEN = "Reportes"
         const val UPDATE_REPORTES_SCREEN = "Actualizar reportes"
         const val LOGIN_SCREEN = "Login"
-
-        // const val LOGIN_SCREEN = "Login"
+        const val SENSOR_SCREEN = "Sensor"
 
         // Arguments
         const val REPORTE_ID = "reporteId"
