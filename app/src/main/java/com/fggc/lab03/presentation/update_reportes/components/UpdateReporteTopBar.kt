@@ -7,7 +7,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import com.fggc.lab03.core.Constants.Companion.UPDATE_REPORTES_SCREEN
+import com.fggc.lab03.core.Constants.Companion.UPDATE_PLANTAS_SCREEN
 
 @Composable
 fun UpdateReporteTopBar (
@@ -15,7 +15,7 @@ fun UpdateReporteTopBar (
 ){
     TopAppBar(
         title = {
-            Text(UPDATE_REPORTES_SCREEN)
+            Text(UPDATE_PLANTAS_SCREEN)
         },
         navigationIcon = {
             IconButton(onClick = { navigateBack() }) {

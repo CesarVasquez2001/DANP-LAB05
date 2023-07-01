@@ -8,26 +8,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fggc.lab03.core.Constants.Companion.COMENTARIOS
-import com.fggc.lab03.core.Constants.Companion.DESCRIPCION
 import com.fggc.lab03.core.Constants.Companion.ESTADO
-import com.fggc.lab03.core.Constants.Companion.LATITUD
-import com.fggc.lab03.core.Constants.Companion.LONGITUD
-import com.fggc.lab03.core.Constants.Companion.TITULO
+import com.fggc.lab03.core.Constants.Companion.ESPECIE
+import com.fggc.lab03.core.Constants.Companion.IMAGEN
+import com.fggc.lab03.core.Constants.Companion.SENSOR_HUMEDAD
+import com.fggc.lab03.core.Constants.Companion.SENSOR_TEMPERATURA
+import com.fggc.lab03.core.Constants.Companion.NOMBRE
 import com.fggc.lab03.core.Constants.Companion.UPDATE
-import com.fggc.lab03.domain.model.Reporte
+import com.fggc.lab03.domain.model.Planta
 
 @Composable
 fun UpdateReporteContext(
     padding: PaddingValues,
-    reporte: Reporte,
+    planta: Planta,
     updateTitulo: (titulo: String) -> Unit,
     updateDescription: (description: String) -> Unit,
     updateLatitud: (latitud: String) -> Unit,
     updateLongitud: (longitud: String) -> Unit,
     updateEstado: (estado: String) -> Unit,
     updateComentarios: (comentarios: String) -> Unit,
-    updateReporte: (reporte: Reporte) -> Unit,
+    updatePlanta: (planta: Planta) -> Unit,
 
     navigateBack: () -> Unit,
 
@@ -40,12 +40,12 @@ fun UpdateReporteContext(
         verticalArrangement = Arrangement.Center
     ) {
         TextField(
-            value = reporte.titulo,
+            value = planta.nombre,
             onValueChange = { titulo ->
                 updateTitulo(titulo)
             },
             placeholder = {
-                Text(TITULO)
+                Text(NOMBRE)
             }
         )
         Spacer(
@@ -53,12 +53,12 @@ fun UpdateReporteContext(
                 .height(8.dp)
         )
         TextField(
-            value = reporte.description,
+            value = planta.especie,
             onValueChange = { description ->
                 updateDescription(description)
             },
             placeholder = {
-                Text(DESCRIPCION)
+                Text(ESPECIE)
             }
         )
         Spacer(
@@ -66,12 +66,12 @@ fun UpdateReporteContext(
                 .height(8.dp)
         )
         TextField(
-            value = reporte.latitud,
+            value = planta.sensorHumedad,
             onValueChange = { latitud ->
                 updateLatitud(latitud)
             },
             placeholder = {
-                Text(LATITUD)
+                Text(SENSOR_HUMEDAD)
             }
         )
         Spacer(
@@ -79,12 +79,12 @@ fun UpdateReporteContext(
                 .height(8.dp)
         )
         TextField(
-            value = reporte.longitud,
+            value = planta.sensorTemperatura,
             onValueChange = { longitud ->
                 updateLongitud(longitud)
             },
             placeholder = {
-                Text(LONGITUD)
+                Text(SENSOR_TEMPERATURA)
             }
         )
         Spacer(
@@ -92,31 +92,31 @@ fun UpdateReporteContext(
                 .height(8.dp)
         )
         TextField(
-            value = reporte.estado,
+            value = planta.imagen,
             onValueChange = { estado ->
                 updateEstado(estado)
+            },
+            placeholder = {
+                Text(IMAGEN)
+            }
+        )
+        Spacer(
+            modifier = Modifier
+                .height(8.dp)
+        )
+        TextField(
+            value = planta.estado,
+            onValueChange = { comentarios ->
+                updateComentarios(comentarios)
             },
             placeholder = {
                 Text(ESTADO)
             }
         )
-        Spacer(
-            modifier = Modifier
-                .height(8.dp)
-        )
-        TextField(
-            value = reporte.comentarios,
-            onValueChange = { comentarios ->
-                updateComentarios(comentarios)
-            },
-            placeholder = {
-                Text(COMENTARIOS)
-            }
-        )
 
         Button(
             onClick = {
-                updateReporte(reporte)
+                updatePlanta(planta)
                 navigateBack()
             }
         ) {

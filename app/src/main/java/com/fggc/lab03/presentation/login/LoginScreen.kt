@@ -2,6 +2,7 @@ package com.fggc.lab03.presentation.login
 
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -15,27 +16,24 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.amazonaws.auth.CognitoCachingCredentialsProvider
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager
-import com.amazonaws.regions.Regions
 import com.fggc.lab03.domain.model.User
 
 
 @Composable
 fun LoginScreen(
 
-    navigateToLoginReporteScreen: (loginId: Int) -> Unit,
+    navigateToLoginPlantaScreen: (loginId: Int) -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 
-
     ) {
+    val context= LocalContext.current
 
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
@@ -44,9 +42,6 @@ fun LoginScreen(
     val users by viewModel.users.collectAsState(
         initial = emptyList()
     )
-
-    Log.d("USUARIOS", users.toString())
-
 
     Surface(
 
@@ -59,23 +54,20 @@ fun LoginScreen(
         ) {
 
             if (showLoginForm.value) {
-                Text(text = "Inicia Sesion")
+                Text(text = "Iniciar Sesion")
                 UserForm(
                     isCreateAccount = false,
-                    navigateToLoginReporteScreen = navigateToLoginReporteScreen,
+                    navigateToLoginPlantaScreen = navigateToLoginPlantaScreen,
 
                     )
                 { email, password ->
-                    Log.d("Bien", "Logueando con $email y $password")
+                    navigateToLoginPlantaScreen
                     val userFound = users.find { it.email == email && it.password == password }
                     if (userFound != null) {
-                        Log.d("SI", "EXISTE")
-                        Log.d("ID", userFound.userId.toString())
-                        Log.d("EMAIL", userFound.email)
-                        Log.d("PASSWORD", userFound.password)
-                        navigateToLoginReporteScreen(userFound.userId)
+                        Toast.makeText(context, "Inicio de sesion exitoso!!!", Toast.LENGTH_SHORT).show()
+                        navigateToLoginPlantaScreen(userFound.userId)
                     } else {
-                        Log.d("NO", "NO EXISTE")
+                        Toast.makeText(context, "Correo o contraseña equivocada", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -83,16 +75,16 @@ fun LoginScreen(
                 Text(text = "Crea una cuenta")
                 UserForm(
                     isCreateAccount = true,
-                    navigateToLoginReporteScreen = navigateToLoginReporteScreen,
+                    navigateToLoginPlantaScreen = navigateToLoginPlantaScreen,
                 )
                 { email, password ->
-                    Log.d("Bien", "Creando cuenta con $email y $password")
-                    Log.d("REGISTRA SESION", "TEST")
+
                     val userFound = users.find { it.email == email && it.password == password }
                     if (userFound != null) {
-                        Log.d("SI", "EXISTE")
+                        Toast.makeText(context, "El correo esta en uso", Toast.LENGTH_SHORT).show()
+
                     } else {
-                        Log.d("NO", "NO EXISTE")
+                        Toast.makeText(context, "Registroso exitoso!!!", Toast.LENGTH_SHORT).show()
                         val user = User(0, email, password)
                         viewModel.addUser(user)
                         showLoginForm.value = !showLoginForm.value
@@ -127,7 +119,7 @@ fun LoginScreen(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun UserForm(
-    navigateToLoginReporteScreen: (loginId: Int) -> Unit,
+    navigateToLoginPlantaScreen: (loginId: Int) -> Unit,
     isCreateAccount: Boolean = false,
     onDone: (String, String) -> Unit = { email, pwd -> }
 ) {
@@ -145,10 +137,10 @@ fun UserForm(
             emailState = email
         )
         PasswordInput(
-            passwordState = password, labelId = "Password", passwordVisible = passwordVisible
+            passwordState = password, labelId = "Contraseña", passwordVisible = passwordVisible
         )
         SubmitButton(
-            navigateToLoginReporteScreen = navigateToLoginReporteScreen,
+            navigateToLoginPlantaScreen = navigateToLoginPlantaScreen,
             textId = if (isCreateAccount) "Crear cuenta" else "Login", inputValido = valido,
 
             ) {
@@ -170,7 +162,7 @@ fun UserForm(
 @Composable
 fun SubmitButton(
 
-    navigateToLoginReporteScreen: (loginId: Int) -> Unit,
+    navigateToLoginPlantaScreen: (loginId: Int) -> Unit,
     textId: String,
     inputValido: Boolean,
     onClic: () -> Unit
@@ -237,7 +229,7 @@ fun PasswordVisibleIcon(passwordVisible: MutableState<Boolean>) {
 }
 
 @Composable
-fun EmailInput(emailState: MutableState<String>, labelId: String = "Email") {
+fun EmailInput(emailState: MutableState<String>, labelId: String = "Correo") {
     InputField(
         valueState = emailState, labelId = labelId, keyboardType = KeyboardType.Email
     )

@@ -18,7 +18,7 @@ fun AddSensorDataFloatingActionButton(
     ) {
         Icon(
             imageVector = Icons.Default.Add,
-            contentDescription = Constants.ADD_REPORTE
+            contentDescription = Constants.ADD_PLANTA
         )
     }
 }

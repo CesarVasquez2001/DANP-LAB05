@@ -12,57 +12,66 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.fggc.lab03.core.Constants.Companion.PLANTAS_SCREEN
+import com.fggc.lab03.domain.repository.Plantas
 import com.fggc.lab03.paging.SensorDataViewModel
-import com.fggc.lab03.presentation.sensor.SensorViewModel
-import com.fggc.lab03.presentation.sensor.components.AddSensorData
-import com.fggc.lab03.presentation.sensor.components.AddSensorDataFloatingActionButton
+import com.fggc.lab03.presentation.reportes.components.AddPlantaAlertDialog
+import com.fggc.lab03.presentation.reportes.components.AddPlantaFloatingActionButton
+import com.fggc.lab03.presentation.reportes.components.ReportesContent
 import com.fggc.lab03.presentation.sensor.components.SensorContent
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-
-fun SensorScreen(
-    viewModel: SensorViewModel = hiltViewModel(),
-    navigateToUpdateReporteScreen: (reporteId: Int) -> Unit,
+fun PlantasScreen(
+    viewModel: PlantasViewModel = hiltViewModel(),
+    navigateToUpdatePlantaScreen: (plantaId: Int) -> Unit,
     loginId: Int,
 
     ) {
     LaunchedEffect(Unit) {
         viewModel.getPostswithUser(loginId)
-        /*
-                viewModel.querySensorData()
-        */
     }
-    val reportes by viewModel.reportesUsers.collectAsState(
+    val plantas by viewModel.plantasUsers.collectAsState(
         initial = emptyList(),
     )
 
-    Log.d("REPORTES", reportes.toString())
+    Log.d("Plantas", plantas.toString())
 
 
     val SensorDataViewModel = hiltViewModel<SensorDataViewModel>()
-    val beers = SensorDataViewModel.SensorPagingFlow.collectAsLazyPagingItems()
+    val sensors = SensorDataViewModel.SensorPagingFlow.collectAsLazyPagingItems()
 
 
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(PLANTAS_SCREEN + " - sensor" + loginId)
+                Text(PLANTAS_SCREEN)
             })
         },
-        content = {
-            SensorContent(sensor = beers)
-            AddSensorData(
+        content = { padding ->
+            ReportesContent(
+                padding = padding,
+                plantas = plantas as Plantas,
+                deletePlanta = { planta ->
+                    viewModel.deletePlanta(planta)
+                },
+                navigateToUpdatePlantaScreen =
+                navigateToUpdatePlantaScreen
+            )
+//            SensorContent(sensor = sensors)
+            AddPlantaAlertDialog(
                 openDialog = viewModel.openDialog,
                 closeDialog = {
                     viewModel.closeDialog()
                 },
-            ) {
-            }
+                addPlanta = { planta ->
+                    viewModel.addPlanta(planta)
+                },
+                loginId = loginId
+            )
         },
         floatingActionButton = {
-            AddSensorDataFloatingActionButton(
+            AddPlantaFloatingActionButton(
                 openDialog = {
                     viewModel.openDialog()
                 }

@@ -18,7 +18,7 @@ fun AddSensorData(
         AlertDialog(
             onDismissRequest = { closeDialog },
             title = {
-                Text(Constants.ADD_REPORTE)
+                Text(Constants.ADD_PLANTA)
             },
             text = {
                 Column() {

@@ -19,22 +19,22 @@ import androidx.paging.compose.items
 import com.fggc.lab03.domain.Sensor
 
 @Composable
-fun BeerScreen(
-    beers: LazyPagingItems<Sensor>
+fun SensorContent(
+    sensor: LazyPagingItems<Sensor>
 ) {
     val context = LocalContext.current
-    LaunchedEffect(key1 = beers.loadState) {
-        if(beers.loadState.refresh is LoadState.Error) {
+    LaunchedEffect(key1 = sensor.loadState) {
+        if(sensor.loadState.refresh is LoadState.Error) {
             Toast.makeText(
                 context,
-                "Error: " + (beers.loadState.refresh as LoadState.Error).error.message,
+                "Error: " + (sensor.loadState.refresh as LoadState.Error).error.message,
                 Toast.LENGTH_LONG
             ).show()
         }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if(beers.loadState.refresh is LoadState.Loading) {
+        if(sensor.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -44,16 +44,16 @@ fun BeerScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(beers) { beer ->
-                    if(beer != null) {
-                        BeerItem(
-                            beer = beer,
+                items(sensor) { sensor ->
+                    if(sensor != null) {
+                        SensorItem(
+                            sensor = sensor,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
                 item {
-                    if(beers.loadState.append is LoadState.Loading) {
+                    if(sensor.loadState.append is LoadState.Loading) {
                         CircularProgressIndicator()
                     }
                 }

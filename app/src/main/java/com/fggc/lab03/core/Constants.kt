@@ -3,21 +3,21 @@ package com.fggc.lab03.core
 class Constants {
     companion object {
         // Room
-        const val REPORTE_TABLE = "reporte_table"
+        const val PLANTAS_TABLE = "planta_table"
         const val USER_TABLE = "user_table"
 
         // Screens
-        const val REPORTES_SCREEN = "Reportes"
-        const val UPDATE_REPORTES_SCREEN = "Actualizar reportes"
+        const val PLANTAS_SCREEN = "Plantas"
+        const val UPDATE_PLANTAS_SCREEN = "Actualizar planta"
         const val LOGIN_SCREEN = "Login"
         const val SENSOR_SCREEN = "Sensor"
 
         // Arguments
-        const val REPORTE_ID = "reporteId"
+        const val PLANTA_ID = "plantaId"
 
         // Actions
-        const val ADD_REPORTE = "Agregar reporte"
-        const val DELETE_REPORTE = "Borrar un reporte"
+        const val ADD_PLANTA = "Nueva planta"
+        const val DELETE_PLANTA = "Borrar una planta"
 
         // Buttons
         const val ADD = "Agregar"
@@ -25,12 +25,12 @@ class Constants {
         const val UPDATE = "Modificar"
 
         // Placeholders
-        const val TITULO = "Titulo"
-        const val DESCRIPCION = "Descripcion"
-        const val LATITUD = "Latitud"
-        const val LONGITUD = "Longitud"
+        const val NOMBRE = "Nombre"
+        const val ESPECIE = "Especie"
+        const val SENSOR_HUMEDAD = "Humedad"
+        const val SENSOR_TEMPERATURA = "Temperatura"
+        const val IMAGEN = "Imagen"
         const val ESTADO = "Estado"
-        const val COMENTARIOS = "Comentarios"
         const val NO_VALUE = ""
     }
 }

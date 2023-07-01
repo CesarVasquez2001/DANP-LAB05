@@ -5,8 +5,8 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.model.query.Where
-import com.amplifyframework.datastore.generated.model.Priority
-import com.amplifyframework.datastore.generated.model.Todo
+/*import com.amplifyframework.datastore.generated.model.Priority
+import com.amplifyframework.datastore.generated.model.Todo*/
 import com.fggc.lab03.domain.model.SensorData
 import com.fggc.lab03.domain.repository.SensorDatas
 import kotlinx.coroutines.flow.Flow

@@ -6,10 +6,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import com.fggc.lab03.core.Constants.Companion.ADD_REPORTE
+import com.fggc.lab03.core.Constants.Companion.ADD_PLANTA
 
 @Composable
-fun AddReporteFloatingActionButton(
+fun AddPlantaFloatingActionButton(
     openDialog: () -> Unit
 ){
     FloatingActionButton(
@@ -18,7 +18,7 @@ fun AddReporteFloatingActionButton(
         ) {
         Icon(
             imageVector = Icons.Default.Add,
-            contentDescription = ADD_REPORTE
+            contentDescription = ADD_PLANTA
         )
     }
 }

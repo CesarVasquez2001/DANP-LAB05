@@ -4,18 +4,18 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.fggc.lab03.presentation.reportes.ReportesViewModel
+import com.fggc.lab03.presentation.reportes.PlantasViewModel
  import com.fggc.lab03.presentation.update_reportes.components.UpdateReporteContext
 import com.fggc.lab03.presentation.update_reportes.components.UpdateReporteTopBar
 
 @Composable
-fun UpdateReporteScreen(
-    viewModel: ReportesViewModel = hiltViewModel(),
-    reporteId: Int,
+fun UpdatePlantaScreen(
+    viewModel: PlantasViewModel = hiltViewModel(),
+    plantaId: Int,
     navigateBack: () -> Unit
 ){
     LaunchedEffect(Unit){
-        viewModel.getReporte(reporteId)
+        viewModel.getPlanta(plantaId)
     }
     Scaffold(
         topBar = {
@@ -26,7 +26,7 @@ fun UpdateReporteScreen(
         content = { padding ->
             UpdateReporteContext(
                 padding = padding,
-                reporte = viewModel.reporte,
+                planta = viewModel.planta,
                 updateTitulo = { titulo->
                     viewModel.updateTitulo(titulo)
                 },
@@ -46,8 +46,8 @@ fun UpdateReporteScreen(
                     viewModel.updateComentarios(comentarios)
                 },
 
-                updateReporte = {reporte ->
-                    viewModel.updateReporte(reporte)
+                updatePlanta = { planta ->
+                    viewModel.updatePlanta(planta)
                 },
                 navigateBack = navigateBack
             )

@@ -9,14 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fggc.lab03.domain.model.Reporte
+import com.fggc.lab03.domain.model.Planta
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ReporteCard(
-    reporte: Reporte,
-    deleteReporte: () -> Unit,
-    navigateToUpdateReporteScreen: (reporteId: Int) -> Unit
+fun PlantaCard(
+    planta: Planta,
+    deletePlanta: () -> Unit,
+    navigateToUpdatePlantaScreen: (plantaId: Int) -> Unit
 ){
     Card(
         shape = MaterialTheme.shapes.medium,
@@ -30,7 +30,7 @@ fun ReporteCard(
             .fillMaxWidth(),
         elevation = 3.dp,
         onClick = {
-            navigateToUpdateReporteScreen(reporte.reporteId)
+            navigateToUpdatePlantaScreen(planta.plantaId)
         }
     ){
         Row(
@@ -40,14 +40,14 @@ fun ReporteCard(
             verticalAlignment = Alignment.CenterVertically
         ){
             Column() {
-                Text(reporte.titulo)
-                Text(reporte.description)
+                Text(planta.nombre)
+                Text(planta.especie)
             }
             Spacer(
                 modifier = Modifier.weight(1f)
             )
             DeleteIcon(
-                deleteReporte = deleteReporte
+                deletePlanta = deletePlanta
             )
         }
     }

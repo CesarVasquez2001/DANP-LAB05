@@ -5,19 +5,19 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
- import com.fggc.lab03.core.Constants.Companion.REPORTE_TABLE
+ import com.fggc.lab03.core.Constants.Companion.PLANTAS_TABLE
 import com.fggc.lab03.core.Constants.Companion.USER_TABLE
-import com.fggc.lab03.data.network.ReporteDB
-import com.fggc.lab03.data.network.ReporteDao
+import com.fggc.lab03.data.network.PlantaDB
+import com.fggc.lab03.data.network.PlantaDao
 import com.fggc.lab03.data.network.SensorDataDB
 import com.fggc.lab03.data.network.SensorDataDao
 import com.fggc.lab03.data.network.UserDB
 import com.fggc.lab03.data.network.UserDao
-import com.fggc.lab03.data.repository.ReporteRepositoryImpl
+import com.fggc.lab03.data.repository.PlantaRepositoryImpl
 import com.fggc.lab03.data.repository.SensorDataRepositoryImpl
 import com.fggc.lab03.data.repository.UserRepositoryImpl
 import com.fggc.lab03.domain.model.SensorData
-import com.fggc.lab03.domain.repository.ReporteRepository
+import com.fggc.lab03.domain.repository.PlantaRepository
 import com.fggc.lab03.domain.repository.SensorDataRepository
 import com.fggc.lab03.domain.repository.UserRepository
 import com.fggc.lab03.paging.remote.SensorRemoteMediator
@@ -33,26 +33,26 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
     @Provides
-    fun provideReporteDb(
+    fun providePlantaDb(
         @ApplicationContext
         context: Context
     ) = Room.databaseBuilder(context,
-    ReporteDB::class.java,
-        REPORTE_TABLE
+    PlantaDB::class.java,
+        PLANTAS_TABLE
         )
         .fallbackToDestructiveMigration()
         .build()
 
     @Provides
-    fun provideReporteDao(
-        reporteDB: ReporteDB
-    ) = reporteDB.reporteDao()
+    fun providePlantaDao(
+        plantaDB: PlantaDB
+    ) = plantaDB.plantaDao()
 
     @Provides
-    fun provideReporteeRepository(
-        reporteDao: ReporteDao
-    ): ReporteRepository = ReporteRepositoryImpl(
-        reporteDao = reporteDao
+    fun providePlantaRepository(
+        plantaDao: PlantaDao
+    ): PlantaRepository = PlantaRepositoryImpl(
+        plantaDao = plantaDao
     )
 
 
@@ -94,19 +94,19 @@ class AppModule {
 
     @Provides
     fun provideSensorDao(
-        reporteDB: SensorDataDB
-    ) = reporteDB.sensorDataDao()
+        sensorDB: SensorDataDB
+    ) = sensorDB.sensorDataDao()
 
     @Provides
     fun provideSensorRepository(
-        reporteDao: SensorDataDao
+        sensorDao: SensorDataDao
     ): SensorDataRepository = SensorDataRepositoryImpl(
-        sensorDataDao = reporteDao
+        sensorDataDao = sensorDao
     )
 
     @Provides
     @Singleton
-    fun provideBeerPager(beerDb: SensorDataDB): Pager<Int, SensorData> {
+    fun provideSensorPager(beerDb: SensorDataDB): Pager<Int, SensorData> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             remoteMediator = SensorRemoteMediator(
@@ -117,7 +117,5 @@ class AppModule {
             }
         )
     }
-
-
 }
 

@@ -7,7 +7,7 @@ data class UserWithRegister(
     @Embedded val user: User,
     @Relation(
         parentColumn = "userId",
-        entityColumn = "userReporteId"
+        entityColumn = "userPlantaId"
     )
-    val registers: List<Reporte>
+    val plantas: List<Planta>
 )

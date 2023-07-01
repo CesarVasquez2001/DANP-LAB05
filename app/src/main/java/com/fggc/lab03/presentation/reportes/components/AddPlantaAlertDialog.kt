@@ -3,6 +3,7 @@ package com.fggc.lab03.presentation.reportes.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -11,35 +12,37 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.fggc.lab03.core.Constants.Companion.ADD
-import com.fggc.lab03.core.Constants.Companion.ADD_REPORTE
+import com.fggc.lab03.core.Constants.Companion.ADD_PLANTA
 import com.fggc.lab03.core.Constants.Companion.DISMISS
 import com.fggc.lab03.core.Constants.Companion.NO_VALUE
-import com.fggc.lab03.core.Constants.Companion.COMENTARIOS
-import com.fggc.lab03.core.Constants.Companion.DESCRIPCION
 import com.fggc.lab03.core.Constants.Companion.ESTADO
-import com.fggc.lab03.core.Constants.Companion.LATITUD
-import com.fggc.lab03.core.Constants.Companion.LONGITUD
-import com.fggc.lab03.core.Constants.Companion.TITULO
-import com.fggc.lab03.domain.model.Reporte
+import com.fggc.lab03.core.Constants.Companion.ESPECIE
+import com.fggc.lab03.core.Constants.Companion.IMAGEN
+import com.fggc.lab03.core.Constants.Companion.SENSOR_HUMEDAD
+import com.fggc.lab03.core.Constants.Companion.SENSOR_TEMPERATURA
+import com.fggc.lab03.core.Constants.Companion.NOMBRE
+import com.fggc.lab03.domain.model.Planta
 import kotlinx.coroutines.job
 
 @Composable
-fun AddReporteAlertDialog(
+fun AddPlantaAlertDialog(
     openDialog: Boolean,
     closeDialog: () -> Unit,
-    addReporte: (reporte: Reporte) -> Unit,
+    addPlanta: (planta: Planta) -> Unit,
     loginId: Int
 ) {
     if (openDialog) {
-        var titulo by remember { mutableStateOf(NO_VALUE) }
-        var description by remember { mutableStateOf(NO_VALUE) }
-        var latitud by remember { mutableStateOf(NO_VALUE) }
-        var longitud by remember { mutableStateOf(NO_VALUE) }
+        var nombre by remember { mutableStateOf(NO_VALUE) }
+        var especie by remember { mutableStateOf(NO_VALUE) }
+        var sensorHumedad by remember { mutableStateOf(NO_VALUE) }
+        var sensorTemperatura by remember { mutableStateOf(NO_VALUE) }
+        var imagen by remember { mutableStateOf(NO_VALUE) }
         var estado by remember { mutableStateOf(NO_VALUE) }
-        var comentarios by remember { mutableStateOf(NO_VALUE) }
-        var user_registro_id by remember {
+        var user_planta_id by remember {
             mutableStateOf(loginId)
         }
         val focusRequester = FocusRequester()
@@ -47,52 +50,70 @@ fun AddReporteAlertDialog(
         AlertDialog(
             onDismissRequest = { closeDialog },
             title = {
-                Text(ADD_REPORTE)
+                Text(
+                    ADD_PLANTA, textAlign = TextAlign.Center,fontSize = 15.sp,
+                )
+
+
             },
+
             text = {
+
                 Column() {
+
                     TextField(
-                        value = titulo,
-                        onValueChange = { titulo = it },
+                        value = nombre,
+                        onValueChange = { nombre = it },
                         placeholder = {
-                            Text(TITULO)
+                            Text(NOMBRE)
                         },
-                        modifier = Modifier.focusRequester(focusRequester)
+                        singleLine = true
                     )
-                    LaunchedEffect(Unit) {
-                        coroutineContext.job.invokeOnCompletion {
-                            focusRequester.requestFocus()
-                        }
-                    }
+
                     Spacer(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = description,
-                        onValueChange = { description = it },
+                        value = especie,
+                        onValueChange = { especie = it },
                         placeholder = {
-                            Text(DESCRIPCION)
-                        }
-                    )
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-                    TextField(
-                        value = latitud,
-                        onValueChange = { latitud = it },
-                        placeholder = {
-                            Text(LATITUD)
-                        }
+                            Text(ESPECIE)
+                        },
+                        singleLine = true
+
                     )
                     Spacer(
                         modifier = Modifier.height(16.dp)
                     )
                     TextField(
-                        value = longitud,
-                        onValueChange = { longitud = it },
+                        value = sensorHumedad,
+                        onValueChange = { sensorHumedad = it },
                         placeholder = {
-                            Text(LONGITUD)
-                        }
+                            Text(SENSOR_HUMEDAD)
+                        },
+                        singleLine = true
+                    )
+                    Spacer(
+                        modifier = Modifier.height(16.dp)
+                    )
+                    TextField(
+                        value = sensorTemperatura,
+                        onValueChange = { sensorTemperatura = it },
+                        placeholder = {
+                            Text(SENSOR_TEMPERATURA)
+                        },
+                        singleLine = true
+                    )
+                    Spacer(
+                        modifier = Modifier.height(16.dp)
+                    )
+                    TextField(
+                        value = imagen,
+                        onValueChange = { imagen = it },
+                        placeholder = {
+                            Text(IMAGEN)
+                        },
+                        singleLine = true
                     )
                     Spacer(
                         modifier = Modifier.height(16.dp)
@@ -102,17 +123,8 @@ fun AddReporteAlertDialog(
                         onValueChange = { estado = it },
                         placeholder = {
                             Text(ESTADO)
-                        }
-                    )
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-                    TextField(
-                        value = comentarios,
-                        onValueChange = { comentarios = it },
-                        placeholder = {
-                            Text(COMENTARIOS)
-                        }
+                        },
+                        singleLine = true
                     )
 
 
@@ -122,17 +134,17 @@ fun AddReporteAlertDialog(
                 TextButton(
                     onClick = {
                         closeDialog()
-                        val reporte = Reporte(
+                        val planta = Planta(
                             0,
-                            titulo,
-                            description,
-                            latitud,
-                            longitud,
+                            nombre,
+                            especie,
+                            sensorHumedad,
+                            sensorTemperatura,
+                            imagen,
                             estado,
-                            comentarios,
-                            user_registro_id
+                            user_planta_id
                         )
-                        addReporte(reporte)
+                        addPlanta(planta)
                     }) {
                     Text(ADD)
                 }

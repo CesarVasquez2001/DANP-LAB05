@@ -1,18 +1,14 @@
 package com.fggc.lab03.presentation.sensor
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amplifyframework.core.Amplify
-import com.amplifyframework.core.model.query.Page
-import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.temporal.Temporal
-import com.amplifyframework.datastore.generated.model.Priority
-import com.amplifyframework.datastore.generated.model.Todo
-import com.fggc.lab03.domain.repository.ReporteRepository
+/*import com.amplifyframework.datastore.generated.model.Priority
+import com.amplifyframework.datastore.generated.model.Todo*/
+import com.fggc.lab03.domain.repository.PlantaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,9 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class
 SensorViewModel @Inject constructor(
-    private val repo: ReporteRepository
+    private val repo: PlantaRepository
 ) : ViewModel() {
 
+/*
 
     fun querySensorData(){
         Amplify.DataStore.query(Todo::class.java,
@@ -40,29 +37,30 @@ SensorViewModel @Inject constructor(
             { Log.e("MyAmplifyApp", "Query failed", it) }
         )
     }
+*/
 
     val date = Date()
     val offsetMillis = TimeZone.getDefault().getOffset(date.time).toLong()
     val offsetSeconds = TimeUnit.MILLISECONDS.toSeconds(offsetMillis).toInt()
     val temporalDateTime = Temporal.DateTime(date, offsetSeconds)
-    val item = Todo.builder()
+/*    val item = Todo.builder()
         .name("Finish quarterly taxes")
         .priority(Priority.HIGH)
         .completedAt(temporalDateTime)
-        .build()
+        .build()*/
 
-    fun addTodo(){
+/*    fun addTodo(){
         Amplify.DataStore.save(item,
             { Log.i("Tutorial", "Saved item: ${item.name}") },
             { Log.e("Tutorial", "Could not save item to DataStore", it) }
         )
-    }
+    }*/
 
     var openDialog by mutableStateOf(false)
-    val reportes = repo.getReportesFromRoom()
+    val reportes = repo.getPlantasFromRoom()
 
 
-    var reportesUsers = repo.getUsersWithPosts(0)
+    var reportesUsers = repo.getUsersWithPlants(0)
 
 
     fun closeDialog() {
@@ -74,7 +72,7 @@ SensorViewModel @Inject constructor(
     }
 
     fun getPostswithUser(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        reportesUsers = repo.getUsersWithPosts(id)
+        reportesUsers = repo.getUsersWithPlants(id)
     }
 
 }

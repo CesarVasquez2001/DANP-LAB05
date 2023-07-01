@@ -6,12 +6,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.fggc.lab03.core.Constants.Companion.REPORTE_ID
+import com.fggc.lab03.core.Constants.Companion.PLANTA_ID
 import com.fggc.lab03.navigation.Screen.*
-import com.fggc.lab03.presentation.reportes.ReportesScreen
+import com.fggc.lab03.presentation.reportes.PlantasScreen
 import com.fggc.lab03.presentation.login.LoginScreen
 import com.fggc.lab03.presentation.reportes.SensorScreen
-import com.fggc.lab03.presentation.update_reportes.UpdateReporteScreen
+import com.fggc.lab03.presentation.update_reportes.UpdatePlantaScreen
 
 @Composable
 fun NavGraph(
@@ -25,9 +25,9 @@ fun NavGraph(
             route = Screen.LoginScreen.route
         ) {
             LoginScreen(
-                navigateToLoginReporteScreen = { loginId ->
+                navigateToLoginPlantaScreen = { loginId ->
                     navController.navigate(
-                        "${SensorScreen.route}/${loginId}"
+                        "${PlantasScreen.route}/${loginId}"
                     )
                 })
         }
@@ -43,15 +43,15 @@ fun NavGraph(
 
             SensorScreen(
                 loginId = loginId,
-                navigateToUpdateReporteScreen = { reporteId ->
+                navigateToUpdateReporteScreen = { plantaId ->
                     navController.navigate(
-                        "${LoginScreen.route}/${reporteId}"
+                        "${LoginScreen.route}/${plantaId}"
                     )
                 }
             )
         }
         composable(
-            route = "${ReportesScreen.route}/{loginId}",
+            route = "${PlantasScreen.route}/{loginId}",
             arguments = listOf(
                 navArgument("loginId") {
                     type = NavType.IntType
@@ -60,26 +60,26 @@ fun NavGraph(
         ) { backStackEntry ->
             val loginId = backStackEntry.arguments?.getInt("loginId") ?: 0
 
-            ReportesScreen(
+            PlantasScreen(
                 loginId = loginId,
-                navigateToUpdateReporteScreen = { reporteId ->
+                navigateToUpdatePlantaScreen = { plantaId ->
                     navController.navigate(
-                        "${UpdateReporteScreen.route}/${reporteId}"
+                        "${UpdatePlantasScreen.route}/${plantaId}"
                     )
                 }
             )
         }
         composable(
-            route = "${UpdateReporteScreen.route}/{$REPORTE_ID}",
+            route = "${UpdatePlantasScreen.route}/{$PLANTA_ID}",
             arguments = listOf(
-                navArgument(REPORTE_ID) {
+                navArgument(PLANTA_ID) {
                     type = NavType.IntType
                 }
             )
         ) { backStackEntry ->
-            val reporteId = backStackEntry.arguments?.getInt(REPORTE_ID) ?: 0
-            UpdateReporteScreen(
-                reporteId = reporteId,
+            val plantaId = backStackEntry.arguments?.getInt(PLANTA_ID) ?: 0
+            UpdatePlantaScreen(
+                plantaId = plantaId,
                 navigateBack = {
                     navController.popBackStack()
                 }

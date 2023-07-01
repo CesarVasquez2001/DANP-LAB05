@@ -15,8 +15,8 @@ import com.fggc.lab03.domain.Sensor
 
 
 @Composable
-fun BeerItem(
-    beer: Sensor,
+fun SensorItem(
+    sensor: Sensor,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -38,25 +38,25 @@ fun BeerItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = beer.sensorDataId.toString(),
+                    text = sensor.sensorDataId.toString(),
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = beer.medicion,
+                    text = sensor.medicion,
                     fontStyle = FontStyle.Italic,
                     color = Color.LightGray,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = beer.comentario,
+                    text = sensor.comentario,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "First brewed in ${beer.date}",
+                    text = "First brewed in ${sensor.date}",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.End,
                     fontSize = 8.sp

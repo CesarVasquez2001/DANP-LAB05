@@ -8,7 +8,6 @@ import com.fggc.lab03.core.Constants
 data class User(
     @PrimaryKey (autoGenerate = true)
     val userId: Int,
-
     val email: String,
     val password: String,
 )
